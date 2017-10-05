@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_celery import make_celery
 from os import environ
 import count_words
@@ -9,9 +9,9 @@ flask_app.config['CELERY_BACKEND']='rpc://'
 
 celery_app = make_celery(flask_app)
 
-@flask_app.route('/api/countPronouns')
+@flask_app.route('/api/countPronouns', methods=['GET'])
 def count():
-	return (str(countPronouns.delay().wait())+'\n')
+	return (jsonify(countPronouns.delay().wait()))
 
 @flask_app.route('/api/add/')
 def hello():
