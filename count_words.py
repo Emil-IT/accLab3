@@ -6,7 +6,7 @@ def countPronouns():
 			for line in file:
 				if not line.isspace():
 					data = json.loads(line)
-					if not data['retweeted']:
+					if not 'retweeted_status' in data:
 						words = data['text'].lower().split()
 						for word in words:
 							if word in pronouns:
